@@ -1,5 +1,6 @@
 const core = require('@actions/core');
 const fs = require('fs');
+const walk = require('walkdir');
 
 // most @actions toolkit packages have async methods
 async function run() {
@@ -11,7 +12,6 @@ async function run() {
       if (keys[ext] === undefined) {
         keys[ext] = [];
       }
-      core.info(`Reading ${path}`);
       keys[ext] = keys[ext].concat(readMessages(`./messages/${path}`));
     });
 
@@ -21,8 +21,10 @@ async function run() {
     });
 
     let anyFailed = false;
+
+    // Missing from a language
     Object.keys(keys).forEach((lang) => {
-      const diff = difference(keys[lang], global);
+      const diff = difference(global, keys[lang]);
       anyFailed = anyFailed || diff.length > 0;
       if (diff.length > 0) {
         core.info(`Missing from ${lang}`);
@@ -31,6 +33,27 @@ async function run() {
         });
       }
     });
+
+    // Gather: Usage from views
+    let used = [];
+    walk.sync('./views/', function (path, stat) {
+      if (stat.isFile()) {
+        used = used.concat(readView(path));
+      }
+    });
+
+    // Not used
+    const notUsed = difference(global, used);
+    notUsed.forEach((key) => {
+      core.info(`Never used: ${key}`);
+    });
+
+    // Not defined
+    const notDefined = difference(used, global);
+    notDefined.forEach((key) => {
+      core.info(`Never defined: ${key}`);
+    });
+
   } catch (error) {
     core.setFailed(error.message);
   }
@@ -40,8 +63,30 @@ function readMessages(path) {
   const lines = fs.readFileSync(path, 'utf8').split('\n');
   const keys = [];
   lines.forEach((line) => {
-    keys.push(line.split('=')[0]);
+    if (line != "") {
+      keys.push(line.split('=')[0]);
+    }
   });
+  return keys;
+}
+
+function readView(path) {
+  const regex = /\{\{\s*msg\s(?:.+?)\s\"(.+?)\"\s*\}\}/gm;
+  let keys = [];
+  let m;
+  while ((m = regex.exec(fs.readFileSync(path, 'utf8'))) !== null) {
+    // This is necessary to avoid infinite loops with zero-width matches
+    if (m.index === regex.lastIndex) {
+      regex.lastIndex++;
+    }
+
+    // The result can be accessed through the `m`-variable.
+    m.forEach((match, groupIndex) => {
+      if (groupIndex == 1) {
+        keys.push(match);
+      }
+    });
+  }
   return keys;
 }
 

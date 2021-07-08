@@ -12,7 +12,8 @@
   "author": "Brett Mayson <brett@vivvo.com>",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.5"
+    "@actions/core": "^1.2.5",
+    "walkdir": "^0.4.1"
   },
   "devDependencies": {
     "@vercel/ncc": "^0.25.1",
