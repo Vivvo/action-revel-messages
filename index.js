@@ -11,7 +11,7 @@ async function run() {
       if (keys[ext] === undefined) {
         keys[ext] = [];
       }
-      core.debug(`Reading ${path}`);
+      core.info(`Reading ${path}`);
       keys[ext] = keys[ext].concat(readMessages(`./messages/${path}`));
     });
 
@@ -25,9 +25,9 @@ async function run() {
       const diff = difference(keys[lang], global);
       anyFailed = anyFailed || diff.length > 0;
       if (diff.length > 0) {
-        console.log(`Missing from ${lang}`);
+        core.info(`Missing from ${lang}`);
         diff.forEach((key) => {
-          console.log(`${lang}: ${key}`);
+          core.info(`${lang}: ${key}`);
         });
       }
     });
