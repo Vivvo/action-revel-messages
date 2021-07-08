@@ -31,9 +31,9 @@ async function run() {
       const diff = difference(keys[lang], global);
       anyFailed = anyFailed || diff.length > 0;
       if (diff.length > 0) {
-        core.info(`Missiong from ${lang}`);
+        console.log(`Missiong from ${lang}`);
         diff.forEach((key) => {
-          core.info(`${lang}: ${key}`);
+          console.log(`${lang}: ${key}`);
         });
       }
     });
