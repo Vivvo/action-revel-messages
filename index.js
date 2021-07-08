@@ -15,7 +15,7 @@ async function run() {
     });
 
     let global = [];
-    keys.keys().forEach((lang) => {
+    Object.keys(keys).forEach((lang) => {
       global = global.concat(keys[lang]);
     });
 
