@@ -8,6 +8,9 @@ async function run() {
     let keys = {};
     dirs.forEach((path) => {
       let ext = path.split('.')[1];
+      if (keys[ext] === undefined) {
+        keys[ext] = [];
+      }
       keys[ext] = keys[ext].concat(readMessages(path));
     });
 
