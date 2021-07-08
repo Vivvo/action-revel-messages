@@ -1,7 +1,7 @@
 {
-  "name": "javascript-action",
+  "name": "action-revel-messages",
   "version": "1.0.0",
-  "description": "JavaScript Action Template",
+  "description": "Check revel messages for issues",
   "main": "index.js",
   "scripts": {
     "lint": "eslint .",
@@ -9,21 +9,8 @@
     "test": "jest",
     "all": "npm run lint && npm run prepare && npm run test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/actions/javascript-action.git"
-  },
-  "keywords": [
-    "GitHub",
-    "Actions",
-    "JavaScript"
-  ],
-  "author": "",
+  "author": "Brett Mayson <brett@vivvo.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/actions/javascript-action/issues"
-  },
-  "homepage": "https://github.com/actions/javascript-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.5"
   },
