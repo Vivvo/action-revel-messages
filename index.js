@@ -11,7 +11,7 @@ async function run() {
       if (keys[ext] === undefined) {
         keys[ext] = [];
       }
-      keys[ext] = keys[ext].concat(readMessages(`.messages/${path}`));
+      keys[ext] = keys[ext].concat(readMessages(`./messages/${path}`));
     });
 
     let global = [];
