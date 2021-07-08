@@ -27,7 +27,7 @@ async function run() {
     });
 
     let anyFailed = false;
-    keys.forEach((lang) => {
+    Object.keys(keys).forEach((lang) => {
       const diff = difference(keys[lang], global);
       anyFailed = anyFailed || diff.length > 0;
       if (diff.length > 0) {
