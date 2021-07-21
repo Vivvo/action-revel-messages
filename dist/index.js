@@ -43,7 +43,7 @@ async function run() {
 
     // Gather: Usage from views
     let used = [];
-    walk.sync('./app/views/', function (path, stat) {
+    walk.sync(core.getInput('path_views'), function (path, stat) {
       if (stat.isFile()) {
         used = used.concat(readView(path));
       }

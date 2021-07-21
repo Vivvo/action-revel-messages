@@ -1,10 +1,10 @@
 name: 'Wait'
 description: 'Wait a designated number of milliseconds'
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  path_views:
+    description: 'path to the views folder'
     required: true
-    default: '1000'
+    default: './app/views'
 outputs:
   time: # output will be available to future steps
     description: 'The message to output'
