@@ -16,7 +16,7 @@
     "walkdir": "^0.4.1"
   },
   "devDependencies": {
-    "@vercel/ncc": "^0.31.1",
+    "@vercel/ncc": "^0.33.2",
     "eslint": "^7.4.0",
     "jest": "^26.1.0"
   }
